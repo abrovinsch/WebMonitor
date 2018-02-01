@@ -1,0 +1,38 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+  <!-- HTML BODY -->
+  <div id = "app">
+  <div class="top-menu">
+    <span>
+      <img id="top-logo" src="img/logo.png"/>
+      <h3 id="main-title">Camur Web Monitor<h3>
+    </span>
+  </div>
+
+  <div class="main">
+    <div class="navmenu">
+      <a class="nav-btn" v-for="item in buttons" id = "{{ item.l }}">
+        {{ item.title }}
+      </a>
+    </div>
+
+    <div class="inspector" id = "inspector">
+      <h2 id = "inspector_title">{{ title }}</h2>
+      <em>{{ description }}</em>
+      <p>Text goes here</p>
+      <a id = "hide-app3" class="btn" >Hello</a>
+      <a id = "hide-app3" class="btn" >Hello</a>
+    </div>
+  </div>
+</div>
+  <!-- Vue -->
+  <script src="plugins/vue.js"></script>
+
+  <!-- Our code -->
+  <script src="app.js"></script>
+</body>
