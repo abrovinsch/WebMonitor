@@ -1,83 +1,89 @@
 // WebMon 1.0
 
-var app = new Vue({
-  el: '#app',
+var inspector = new Vue({
+  el: '.inspector',
   data: {
     description: 'Description',
     title: 'Title',
-    projects: [
-      {
-        title: 'Project 1 ',
-        open: true,
-        zones: [
-          {
-            title: 'Zone 1',
-            open: true,
-            nodes: [
-              {title: 'P4', serial: 748977}
-            ]
-          },
-          {
-            title: 'Zone 2',
-            open: true,
-            nodes: [
-              {title: 'P4', serial: 748977}
-            ]
-          },
-          {
-            title: 'Zone 3',
-            open: false,
-            nodes: [
-              {title: 'P4', serial: 748977}
-            ]
-          }
-        ]
-      },
-      {
-        title: 'Project 2',
-        open: false,
-        zones: [
-          {
-            title: 'Zone 1',
-            open: true,
-            nodes: [
-              {title: 'P4', serial: 748977}
-            ]
-          },
-          {
-            title: 'Zone 2',
-            open: true,
-            nodes: [
-              {title: 'P4', serial: 748977},
-              {title: 'P4', serial: 748977},
-              {title: 'P4', serial: 748977},
-              {title: 'P4', serial: 748977},
-              {title: 'P4', serial: 748977}
-            ]
-          },
-          {
-            title: 'Zone 3',
-            open: true,
-            nodes: [
-              {title: 'P4', serial: 748977}
-            ]
-          }
-        ]
-      }
-    ]
+    projects: []
+  },
+
+})
+
+var navmenu = new Vue({
+  el: '.navmenu',
+  data: {
+    projects: []
+  },
+  methods: {
+    select_node: function (node) {
+      inspector.title = node.title + " - " + node.serial;
+      inspector.description = node.online ? "Online" : "Offline";
+    },
+    select_zone: function (zone) {
+      inspector.title = zone.title;
+      zone.open = !zone.open;
+      inspector.description = "";
+    }
   }
 })
 
-document.title = "WebMon 1";
-
-function x()
-{
-  app3.seen = !app3.seen;
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-function Select()
+function getRandomNode()
 {
-  app.title = "P4";
-  app.description = "Desc";
+  var o = getRandomInt(0,3) == 1 ? false : true;
+
+  var types = ["ZRA", "P4", "WLink", "PQuick", "Fixvolt"]
+  var type = types[Math.floor(Math.random() * types.length)];
+  var symb = 'scanner';
+
+  if(type == "WLink")
+  {
+    symb = 'wifi';
+  }
+  if(type == "Fixvolt")
+  {
+    symb = 'power_input';
+  }
+
+  return {
+    title: type,
+    online: o,
+    symbol: symb,
+    serial: getRandomInt(748800, 749000),
+  }
+}
+
+document.title = "WebMon 1";
+
+for(var i = 0; i<3; i++)
+{
+
+  var x = {
+    title: 'Project ' + (i+1),
+    open: true,
+    zones: []
+  }
+
+  for(var j = 0; j < getRandomInt(1,4); j++)
+  {
+    var z = {
+      title: 'Zone ' + (j+1),
+      open: true,
+      nodes: []
+    }
+
+    x.zones.push(z);
+  }
+
+  x.zones.forEach(function(zone) {
+    for(var j = 0; j < getRandomInt(1,27); j++)
+    {
+      zone.nodes.push(getRandomNode());
+    }
+  });
+  navmenu.projects.push(x);
 }
