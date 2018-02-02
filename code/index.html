@@ -15,16 +15,43 @@
   </div>
 
   <div class="main">
+
     <div class="navmenu">
-      <a class="nav-btn" v-for="item in buttons" id = "{{ item.l }}">
-        {{ item.title }}
-      </a>
+      <div class="navmenu_project" v-for="project in projects">
+        <a class="nav-btn" v-on:click="project.open = !project.open">
+          <div id="navmenu_project_title">{{ project.title }}</div>
+        </a>
+        <div class = "navmenu_list" v-if="project.open" v-for="zone in project.zones">
+          <a class="nav-btn" v-on:click="zone.open = !zone.open">
+            <div id="navmenu_zone_title" >{{ zone.title }}</div>
+          </a>
+          <div class = "navmenu_list">
+            <span v-if="zone.open" v-for="node in zone.nodes">
+              <a class="nav-btn">
+                <div id="navmenu_node_title" >{{ node.title }} - {{ node.serial}}</div>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="inspector" id = "inspector">
       <h2 id = "inspector_title">{{ title }}</h2>
       <em>{{ description }}</em>
       <p>Text goes here</p>
+
+      <div>
+        <p class="input-label">Name: </p><input type="text">
+      </div>
+      <div>
+        <p class="input-label">Value: </p><input type="text">
+      </div>
+      <div>
+        <p class="input-label">Description: </p><input type="text">
+      </div>
+
+      <br/>
       <a id = "hide-app3" class="btn" >Hello</a>
       <a id = "hide-app3" class="btn" >Hello</a>
     </div>
