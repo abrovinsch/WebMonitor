@@ -9,11 +9,16 @@ var root_selection = {
 var inspector = new Vue({
   el: '.inspector',
   data: {
+    title: "Welcome",
     selected: root_selection,
     components: [
-
     ]
   },
+  methods: {
+      updateLastValue: function (sel) {
+        sel.last_value = Math.random() * 0.3;
+      }
+  }
 })
 
 var navmenu = new Vue({
@@ -23,9 +28,10 @@ var navmenu = new Vue({
     selected: Object()
   },
   methods: {
-    select_node: function (node) {
+    select_node: function (node, event) {
       inspector.title = node.title + " - " + node.node_type;
       inspector.description = node.online ? "Online" : "Offline";
+      inspector.selected.selected = false;
       inspector.selected = node;
       node.selected = true;
     },
@@ -33,7 +39,7 @@ var navmenu = new Vue({
       inspector.title = zone.title;
       zone.open = !zone.open;
       inspector.description = "";
-      this.selected = node;
+      this.selected = zone;
     }
   }
 })
@@ -50,9 +56,9 @@ function getRandomNode()
   var _type = types[Math.floor(Math.random() * types.length)];
   var symb = 'scanner';
   var ver = "3." + getRandomInt(3,7);
+  var _last_value = Math.random() * 0.3;
 
   var comps = [
-    {type: "node info", open: true},
     {type: "node info", open: true},
     {type: "last values", open: true},
   ];
@@ -68,8 +74,6 @@ function getRandomNode()
     comps.push({type: "fixvolt", open: true})
   }
 
-
-
   return {
     title: getRandomInt(748800, 749000),
     online: _online,
@@ -78,6 +82,7 @@ function getRandomNode()
     node_type: _type,
     components: comps,
     version: ver,
+    last_value: _last_value,
     selected: false
   }
 }

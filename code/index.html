@@ -40,12 +40,12 @@
               </a>
               <div class = "navmenu_list">
                 <span v-if="zone.open" v-for="node in zone.nodes">
-                  <a class="nav-btn" v-on:click="select_node(node)">
+                  <a class = "nav-btn" v-bind:class="{selected_nav_btn: node.selected}" v-on:click="select_node(node, $event)">
                     <div id="navmenu_node_title">
                       {{ node.title }} – {{ node.node_type}}
-                      <i class="material-icons node-offline">{{node.symbol}}</i>
+                      <i class="material-icons small">{{node.symbol}}</i>
                       <i v-if="node.online" class="material-icons node-online">cloud</i>
-                      <i v-else class="material-icons node-offline">cloud_off</i>
+                      <i v-else class="material-icons small">cloud_off</i>
                       <i v-if="node.alarm" class="material-icons node-alarm">alarm</i>
                     </div>
                   </a>
@@ -57,6 +57,8 @@
       </div>
 
       <div class="inspector">
+
+
         <h2 id = "inspector_title">{{ selected.title }} – {{ selected.node_type }}</h2>
         <em>{{ selected.description }}</em>
 
@@ -72,32 +74,10 @@
           </div>
 
           <div v-if="component.open" class="component">
+
+
             <!-- Node Info -->
             <span v-if="component.type === 'node info'">
-              <div class="comp-element">
-                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
-              </div>
-
-              <div class="comp-element">
-                <b>Name:</b><input type="text">
-              </div>
-
-              <div class="comp-element">
-                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
-              </div>
-
-              <div class="comp-element">
-                <b>Name:</b><input type="text">
-              </div>
-
-              <div class="comp-element">
-                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
-              </div>
-
-              <div class="comp-element">
-                <b>Name:</b><input type="text">
-              </div>
-
               <div class="comp-element">
                 <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
               </div>
@@ -115,22 +95,17 @@
               </div>
             </span>
 
+            <!-- Last values -->
+            <span v-if="component.type === 'last values'">
+              <div class="comp-element">
+                <b>Last value: </b>{{selected.last_value}}V
+                <a class="btn" v-on:click="updateLastValue(selected)">Update</a>
+              </div>
+            </span>
+
           </div>
         </div>
 
-        <!--<div>
-          <p class="input-label">Name: </p><input type="text">
-        </div>
-        <div>
-          <p class="input-label">Value: </p><input type="text">
-        </div>
-        <div>
-          <p class="input-label">Description: </p><input type="text">
-        </div>
-
-        <br/>
-        <a id = "hide-app3" class="btn" >Hej jag heter Oskar Ör</a>
-        <a id = "hide-app3" class="btn" >Hello</a> -->
       </div>
     </div>
     <!-- Vue -->

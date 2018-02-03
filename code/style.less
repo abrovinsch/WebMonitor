@@ -9,13 +9,16 @@
 @col_topmenu_title: white;
 @col_gray_borders: #dfe2e2;
 
-@col_cloud_online: #3eaa57;
+@col_cloud_online: #4ecc6b;
 @col_cloud_offline: #7f7f7f;
 @col_navmenu: #eef3f3;
+@col_alarm: #f05968;
 
 @col_btn: #396cd3;
 @col_btn_hover: #5789ed;
 @col_btn_active: #1952bb;
+
+@col_selected_nav_item: #0000ff;
 
 @subtle_shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 /*
@@ -146,7 +149,6 @@ div.app{
 }
 
 .nav-btn:hover{
-  text-decoration: underline;
   background-color: @col_gray_borders;
 }
 
@@ -156,7 +158,16 @@ div.app{
 }
 
 .selected_nav_btn{
-  color: red;
+  background-color: @col_btn;
+  color: white;
+}
+
+.selected_nav_btn:hover{
+  background-color: @col_btn_hover;
+}
+
+.selected_nav_btn:active{
+  background-color: @col_btn_active;
 }
 
 // INSPECTOR
@@ -179,6 +190,7 @@ div.app{
   padding-left: @padding_inspector;
   padding-top: 2px;
   padding-bottom: 10px;
+  padding-top: 10px;
   max-width: 700px;
 }
 
@@ -272,5 +284,5 @@ ul{
 .material-icons.arrow {font-size: 14pt;}
 .material-icons.big_arrow {font-size: 12pt;}
 .material-icons.node-online { font-size: 14px; color:@col_cloud_online;}
-.material-icons.node-offline { font-size: 14px; color:@col_cloud_offline;}
-.material-icons.node-alarm { font-size: 14px; color:red;}
+.material-icons.node-alarm { font-size: 14px; color:@col_alarm;}
+.material-icons.small{font-size: 14px}
