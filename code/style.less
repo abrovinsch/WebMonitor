@@ -7,17 +7,25 @@
 @col_txt: #141e25;
 @col_topmenu: #2a2c2f;
 @col_topmenu_title: white;
+@col_gray_borders: #dfe2e2;
 
-@col_cloud_online: #21a0ca;
+@col_cloud_online: #3eaa57;
 @col_cloud_offline: #7f7f7f;
 @col_navmenu: #eef3f3;
-@col_navmenu: #eef3f3;
 
+@col_btn: #396cd3;
+@col_btn_hover: #5789ed;
+@col_btn_active: #1952bb;
+
+@subtle_shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 /*
  *    DIMENSIONS
  */
 @width_navmenu: 280px;
+@width_inspector: 2000px;
 @height_topmenu: 47px;
+@height_ui_row: 32px;
+@padding_inspector: 30px;
 body{
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   background-color: @col_background;
@@ -68,6 +76,9 @@ div.app{
   margin-top: 50px;
 }
 
+
+// NAVMENU
+
 .navmenu{
   padding-top: 1px;
   background-color: @col_navmenu;
@@ -77,8 +88,8 @@ div.app{
   top:50px;
   height: 100%;
   border-right-style: solid;
-  border-right-color: #dfe2e2;
-  border-right-width: 1px;
+  border-right-color: @col_gray_borders;
+  border-right-width: 2px;
   color: #37383a;
 }
 
@@ -136,7 +147,7 @@ div.app{
 
 .nav-btn:hover{
   text-decoration: underline;
-  background-color: #dadee3;
+  background-color: @col_gray_borders;
 }
 
 .nav-btn:active{
@@ -144,16 +155,60 @@ div.app{
   color:#262729;
 }
 
+.selected_nav_btn{
+  color: red;
+}
+
+// INSPECTOR
+
 .inspector {
   margin-left: @width_navmenu;
-  padding: 30px;
-  max-width: 700px;
+  max-width: @width_inspector;
+  padding-top: 30px;
 }
 
 #inspector_title{
   margin-top: 0px;
   margin-bottom: 5px;
+  padding-left: @padding_inspector;
 }
+
+.component{
+  //border-style: solid;
+  border-color: red;
+  padding-left: @padding_inspector;
+  padding-top: 2px;
+  padding-bottom: 10px;
+  max-width: 700px;
+}
+
+.component_separator{
+  background-color: #dfe3e3;
+  padding: 5px;
+  padding-left: @padding_inspector;
+  text-transform: uppercase;
+  width: 100%;
+  margin-top: 2px;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-right-style: solid;
+  border-right-width: thin;
+  border-color: #c8caca;
+  color: #505050;
+
+  box-shadow: @subtle_shadow;
+}
+
+.open_component_button{
+
+}
+
+.comp-element{
+  padding-right: 20px;
+  display: inline-block;
+}
+
+// UI elements
 
 .btn{
   padding-left: 10px;
@@ -164,8 +219,10 @@ div.app{
   margin-right: 3px;
   margin-bottom: 6px;
 
+  max-height: @height_ui_row;
+
   border-radius: 4px;
-  background-color: #234584;
+  background-color: @col_btn;
 
   text-decoration: none;
   color: white;
@@ -173,23 +230,35 @@ div.app{
   font-stretch:condensed;
 
   display: inline-block;
+
+  box-shadow: @subtle_shadow;
+
 }
 
 .btn:hover{
-  background-color: #1952bb;
+  background-color: @col_btn_hover;
 }
 
 .btn:active{
-  background-color: #263550;
-  color: #d7d7d7;
+  background-color: @col_btn_active;
+  color: #e6e9ec;
+  box-shadow: none;
+}
+
+h2{
+  padding-bottom: 16px;
 }
 
 input{
+  width: 120px;
   font-size: 16px;
   padding: 4px;
   display: inline;
   margin-bottom: 20px;
+  margin-top: 5px;
   margin-right: 20px;
+  margin-left: 5px;
+  height: @height_ui_row;
 }
 
 ul{
@@ -201,5 +270,7 @@ ul{
 }
 
 .material-icons.arrow {font-size: 14pt;}
+.material-icons.big_arrow {font-size: 12pt;}
 .material-icons.node-online { font-size: 14px; color:@col_cloud_online;}
 .material-icons.node-offline { font-size: 14px; color:@col_cloud_offline;}
+.material-icons.node-alarm { font-size: 14px; color:red;}

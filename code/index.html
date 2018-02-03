@@ -42,10 +42,11 @@
                 <span v-if="zone.open" v-for="node in zone.nodes">
                   <a class="nav-btn" v-on:click="select_node(node)">
                     <div id="navmenu_node_title">
+                      {{ node.title }} – {{ node.node_type}}
+                      <i class="material-icons node-offline">{{node.symbol}}</i>
                       <i v-if="node.online" class="material-icons node-online">cloud</i>
                       <i v-else class="material-icons node-offline">cloud_off</i>
-                      <i class="material-icons node-offline">{{node.symbol}}</i>
-                      {{ node.title }} - {{ node.serial}}
+                      <i v-if="node.alarm" class="material-icons node-alarm">alarm</i>
                     </div>
                   </a>
                 </span>
@@ -56,11 +57,68 @@
       </div>
 
       <div class="inspector">
-        <h2 id = "inspector_title">{{ title }}</h2>
-        <em>{{ description }}</em>
-        <p>Text goes here</p>
+        <h2 id = "inspector_title">{{ selected.title }} – {{ selected.node_type }}</h2>
+        <em>{{ selected.description }}</em>
 
-        <div>
+        <div v-for="component in selected.components">
+
+          <div class="component_separator">
+            <a class = "open_component_button" v-on:click="component.open = !component.open">
+                <i v-if="component.open" class="material-icons big_arrow">keyboard_arrow_down</i>
+                <i v-else class="material-icons big_arrow">keyboard_arrow_right</i>
+                {{component.type}}
+            </a>
+
+          </div>
+
+          <div v-if="component.open" class="component">
+            <!-- Node Info -->
+            <span v-if="component.type === 'node info'">
+              <div class="comp-element">
+                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
+              </div>
+
+              <div class="comp-element">
+                <b>Name:</b><input type="text">
+              </div>
+
+              <div class="comp-element">
+                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
+              </div>
+
+              <div class="comp-element">
+                <b>Name:</b><input type="text">
+              </div>
+
+              <div class="comp-element">
+                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
+              </div>
+
+              <div class="comp-element">
+                <b>Name:</b><input type="text">
+              </div>
+
+              <div class="comp-element">
+                <b>Type: </b>{{selected.node_type}} v.{{selected.version}}
+              </div>
+
+              <div class="comp-element">
+                <b>Name:</b><input type="text">
+              </div>
+            </span>
+
+            <!-- Fixvolt -->
+            <span v-if="component.type === 'fixvolt'">
+              <div class="comp-element">
+                <b>Voltage:</b><input type="text">
+                <a class="btn" >Set Voltage</a>
+              </div>
+            </span>
+
+          </div>
+        </div>
+
+        <!--<div>
           <p class="input-label">Name: </p><input type="text">
         </div>
         <div>
@@ -72,7 +130,7 @@
 
         <br/>
         <a id = "hide-app3" class="btn" >Hej jag heter Oskar Ör</a>
-        <a id = "hide-app3" class="btn" >Hello</a>
+        <a id = "hide-app3" class="btn" >Hello</a> -->
       </div>
     </div>
     <!-- Vue -->

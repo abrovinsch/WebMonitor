@@ -1,29 +1,39 @@
 // WebMon 1.0
 
+var root_selection = {
+  title: "Welcome to Camur Web Monitor",
+  components: []
+}
+
+
 var inspector = new Vue({
   el: '.inspector',
   data: {
-    description: 'Description',
-    title: 'Title',
-    projects: []
-  },
+    selected: root_selection,
+    components: [
 
+    ]
+  },
 })
 
 var navmenu = new Vue({
   el: '.navmenu',
   data: {
-    projects: []
+    projects: [],
+    selected: Object()
   },
   methods: {
     select_node: function (node) {
-      inspector.title = node.title + " - " + node.serial;
+      inspector.title = node.title + " - " + node.node_type;
       inspector.description = node.online ? "Online" : "Offline";
+      inspector.selected = node;
+      node.selected = true;
     },
     select_zone: function (zone) {
       inspector.title = zone.title;
       zone.open = !zone.open;
       inspector.description = "";
+      this.selected = node;
     }
   }
 })
@@ -34,26 +44,41 @@ function getRandomInt(min, max) {
 
 function getRandomNode()
 {
-  var o = getRandomInt(0,3) == 1 ? false : true;
-
+  var _online = getRandomInt(0,3) == 1 ? false : true;
+  var _alarm = getRandomInt(0,10) == 1 ? true : false;
   var types = ["ZRA", "P4", "WLink", "PQuick", "Fixvolt"]
-  var type = types[Math.floor(Math.random() * types.length)];
+  var _type = types[Math.floor(Math.random() * types.length)];
   var symb = 'scanner';
+  var ver = "3." + getRandomInt(3,7);
 
-  if(type == "WLink")
+  var comps = [
+    {type: "node info", open: true},
+    {type: "node info", open: true},
+    {type: "last values", open: true},
+  ];
+
+  if(_type == "WLink")
   {
     symb = 'wifi';
+    comps.push({type: "wlink", open: true})
   }
-  if(type == "Fixvolt")
+  if(_type == "Fixvolt")
   {
     symb = 'power_input';
+    comps.push({type: "fixvolt", open: true})
   }
 
+
+
   return {
-    title: type,
-    online: o,
+    title: getRandomInt(748800, 749000),
+    online: _online,
+    alarm: _alarm,
     symbol: symb,
-    serial: getRandomInt(748800, 749000),
+    node_type: _type,
+    components: comps,
+    version: ver,
+    selected: false
   }
 }
 
