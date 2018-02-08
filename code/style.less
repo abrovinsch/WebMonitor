@@ -3,8 +3,9 @@
 /*
  *    COLORS
  */
-@col_background: #f9fbfb;
-@col_txt: #141e25;
+@col_background: white;
+//@col_background: #f9fbfb;
+@col_txt: #2a2c2f;
 @col_topmenu: #2a2c2f;
 @col_topmenu_title: white;
 @col_gray_borders: #dfe2e2;
@@ -17,6 +18,7 @@
 @col_btn: #396cd3;
 @col_btn_hover: #5789ed;
 @col_btn_active: #1952bb;
+@col_btn_disabled: #98a1a1;
 
 @col_selected_nav_item: #0000ff;
 
@@ -25,7 +27,7 @@
  *    DIMENSIONS
  */
 @width_navmenu: 280px;
-@width_inspector: 2000px;
+@width_inspector: 700px;
 @height_topmenu: 47px;
 @height_ui_row: 32px;
 @padding_inspector: 30px;
@@ -84,7 +86,7 @@ div.app{
 
 .navmenu{
   padding-top: 1px;
-  background-color: @col_navmenu;
+  background-color: @col_background;
   max-width: @width_navmenu;
   min-width: @width_navmenu;
   position: fixed;
@@ -92,8 +94,9 @@ div.app{
   height: 100%;
   border-right-style: solid;
   border-right-color: @col_gray_borders;
-  border-right-width: 2px;
+  border-right-width: 1px;
   color: #37383a;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
 }
 
 .navmenu-content
@@ -255,6 +258,11 @@ div.app{
   background-color: @col_btn_active;
   color: #e6e9ec;
   box-shadow: none;
+}
+
+.btn_disabled{
+  .btn;
+  background-color: @col_btn_disabled;
 }
 
 h2{

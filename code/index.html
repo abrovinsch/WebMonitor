@@ -59,8 +59,9 @@
       <div class="inspector">
 
 
-        <h2 id = "inspector_title">{{ selected.title }} – {{ selected.node_type }}</h2>
+        <h2 id = "inspector_title">{{ selected.heading }}</h2>
         <em>{{ selected.description }}</em>
+
 
         <div v-for="component in selected.components">
 
@@ -75,7 +76,6 @@
 
           <div v-if="component.open" class="component">
 
-
             <!-- Node Info -->
             <span v-if="component.type === 'node info'">
               <div class="comp-element">
@@ -83,7 +83,7 @@
               </div>
 
               <div class="comp-element">
-                <b>Name:</b><input type="text">
+                <b>Name:</b><input type="text" value="Name">
               </div>
             </span>
 
@@ -95,11 +95,38 @@
               </div>
             </span>
 
+            <!-- WLink -->
+            <span v-if="component.type === 'wlink'">
+              <div class="comp-element">
+                <b>Channel:</b><input type="text">
+                <a class="btn">Get</a>
+                <a class="btn">Set</a>
+                <br/>
+              </div>
+
+              <div class="comp-element">
+                <b>Network:</b><input type="text">
+                <a class="btn">Get</a>
+                <a class="btn">Set</a>
+                <br/>
+              </div>
+
+              <div class="comp-element">
+                <b>Power Level:</b><input type="text">
+                <a class="btn">Get</a>
+                <a class="btn">Set</a>
+                <br/>
+              </div>
+            </span>
+
             <!-- Last values -->
             <span v-if="component.type === 'last values'">
               <div class="comp-element">
-                <b>Last value: </b>{{selected.last_value}}V
-                <a class="btn" v-on:click="updateLastValue(selected)">Update</a>
+                <b>Last value: </b>
+                {{ (selected.last_value).toFixed(2)  }}V
+
+                <a class="btn" v-if="!selected.waitingForLastValue" v-on:click="requestLastValue(selected)">Update</a>
+                <a class="btn_disabled" v-else>Waiting...</a>
               </div>
             </span>
 
@@ -108,6 +135,7 @@
 
       </div>
     </div>
+
     <!-- Vue -->
     <script src="plugins/vue.js"></script>
 
