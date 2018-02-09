@@ -153,7 +153,6 @@ function getNodeBySerial(serial)
 }
 
 // BUILTIN FUNCTIONS
-
 function onPageLoad()
 {
   document.title = "WebMon 1";
