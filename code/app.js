@@ -157,8 +157,9 @@ function getNodeBySerial(serial)
 function onPageLoad()
 {
   document.title = "WebMon 1";
+  projects = 2
 
-  for(var i = 0; i<1; i++)
+  for(var i = 0; i<projects; i++)
   {
     inspector.requestProject("Project " + (i+1));
   }
